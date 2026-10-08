@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#120d17">
+  <meta name="description" content="Little Letter — a tiny interactive surprise for someone special.">
+  <title>Little Letter ✦</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="aurora aurora-a"></div><div class="aurora aurora-b"></div><div class="grain"></div>
+  <div id="sparkles" aria-hidden="true"></div>
+
+  <main id="app">
+    <section class="screen active" id="home">
+      <div class="home-shell">
+        <div class="floating-orbit" aria-hidden="true">
+          <span>♡</span><span>✦</span><span>♥</span><span>✧</span><span>♡</span>
+        </div>
+        <div class="mascot" aria-hidden="true">
+          <div class="bear bear-one"><i></i><b>•ᴗ•</b></div>
+          <div class="bear bear-two"><i></i><b>•ᴗ•</b></div>
+          <div class="love-pop">♥</div>
+        </div>
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> a tiny corner for big feelings <span></span></div>
+          <h1>Make them feel<br><em>extra loved.</em></h1>
+          <p>Create a little interactive surprise with questions, tiny reveals, and a letter they can keep.</p>
+          <button class="cta cta-main" id="startBtn">Create my little letter <strong>↗</strong></button>
+          <div class="trust-row"><span>✦ no account</span><span>✦ free</span><span>✦ share by link</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="create">
+      <div class="builder">
+        <header class="builder-head">
+          <button class="icon-btn" id="backBtn" aria-label="Go back">←</button>
+          <div class="step-track">
+            <div class="step-line"><i id="progress"></i></div>
+            <div class="step-caption"><span id="stepTitle">The feeling</span><b id="stepNo">01 / 04</b></div>
+          </div>
+          <button class="icon-btn ghost" id="resetBtn" aria-label="Start over">↻</button>
+        </header>
+
+        <div class="builder-stage">
+          <div class="form-step active" data-step="1">
+            <div class="step-kicker">01 · The feeling</div>
+            <h2>Who are we making<br>this little magic for?</h2>
+            <p class="lead">Pick the relationship that feels closest. You can always change your mind.</p>
+            <div class="relationship-grid" id="relationshipGrid">
+              <button class="choice" data-rel="Lover"><span class="choice-icon">♥</span><span>Lover</span><small>my person</small></button>
+              <button class="choice" data-rel="Best Friend"><span class="choice-icon">✦</span><span>Best Friend</span><small>ride or die</small></button>
+              <button class="choice" data-rel="Bestie"><span class="choice-icon">☼</span><span>Bestie</span><small>my favorite chaos</small></button>
+              <button class="choice" data-rel="Sister"><span class="choice-icon">❀</span><span>Sister</span><small>built-in love</small></button>
+              <button class="choice" data-rel="Brother"><span class="choice-icon">☾</span><span>Brother</span><small>forever team</small></button>
+              <button class="choice" data-rel="Friend"><span class="choice-icon">♧</span><span>Friend</span><small>good human</small></button>
+              <button class="choice" data-rel="Family"><span class="choice-icon">⌂</span><span>Family</span><small>home in a person</small></button>
+              <button class="choice" data-rel="Someone special"><span class="choice-icon">✧</span><span>Someone special</span><small>hard to explain</small></button>
+            </div>
+            <button class="cta next" id="next1" disabled>That's the one <strong>→</strong></button>
+          </div>
+
+          <div class="form-step" data-step="2">
+            <div class="step-kicker">02 · Make it theirs</div>
+            <h2>A few little<br>details first.</h2>
+            <p class="lead">These make the final reveal feel like it was made just for them.</p>
+            <div class="field-grid">
+              <label class="field"><span>Their name</span><input id="receiver" maxlength="40" placeholder="e.g. Nanami" autocomplete="off"></label>
+              <label class="field"><span>Your name</span><input id="sender" maxlength="40" placeholder="e.g. Yuki" autocomplete="off"></label>
+            </div>
+            <label class="field"><span>What's the occasion?</span>
+              <select id="occasion">
+                <option>Birthday</option><option>Sorry</option><option>Thank you</option><option>Just because</option><option>Appreciation</option><option>Congratulations</option><option>Custom</option>
+              </select>
+            </label>
+            <label class="field custom-occasion hidden" id="customOccasionWrap"><span>Your occasion</span><input id="customOccasion" maxlength="50" placeholder="e.g. Our 100th day"></label>
+            <button class="cta next" id="next2">Continue to the letter <strong>→</strong></button>
+          </div>
+
+          <div class="form-step" data-step="3">
+            <div class="step-kicker">03 · Your words</div>
+            <h2>Now say the thing<br>you really mean.</h2>
+            <p class="lead">I’ve written a tiny starting draft for you. Keep it, edit it, or erase every word and make it completely yours.</p>
+            <div class="letter-editor">
+              <div class="editor-top"><span>♡ little letter</span><span id="count">0 / 1800</span></div>
+              <textarea id="letter" maxlength="1800" spellcheck="true"></textarea>
+              <div class="editor-bottom"><span>✦ Your words stay in this link only.</span><button id="clearLetter" type="button">Clear everything</button></div>
+            </div>
+            <div class="vibe-row">
+              <span>Pick the mood</span>
+              <div class="vibe-pills">
+                <button class="vibe selected" data-vibe="dreamy">Dreamy</button>
+                <button class="vibe" data-vibe="cute">Cute</button>
+                <button class="vibe" data-vibe="midnight">Midnight</button>
+                <button class="vibe" data-vibe="warm">Warm</button>
+              </div>
+            </div>
+            <button class="cta next" id="next3">Add the tiny questions <strong>→</strong></button>
+          </div>
+
+          <div class="form-step" data-step="4">
+            <div class="step-kicker">04 · The little reveal</div>
+            <h2>Give them three<br>tiny questions.</h2>
+            <p class="lead">They'll answer these before the letter opens. Delete a question if you want fewer.</p>
+            <div class="question-fields">
+              <label class="field"><span>Question 01</span><input id="q1" maxlength="120"></label>
+              <label class="field"><span>Question 02</span><input id="q2" maxlength="120"></label>
+              <label class="field"><span>Question 03</span><input id="q3" maxlength="120"></label>
+            </div>
+            <button class="cta next" id="previewBtn">See the surprise <strong>✦</strong></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="preview">
+      <button class="floating-back" id="editBtn">← edit</button>
+      <div class="preview-scene">
+        <div class="tiny-stars">✦　·　♡　·　✦</div>
+        <div class="envelope" aria-hidden="true"><div class="envelope-paper"></div><div class="envelope-flap"></div><span>♥</span></div>
+        <div class="eyebrow">a little surprise for</div>
+        <h2 id="pReceiver">Someone special</h2>
+        <p id="pOccasion">A little surprise</p>
+        <button class="cta cta-main" id="openBtn">Open your surprise <strong>→</strong></button>
+        <div class="preview-note">There are a few tiny questions first… 👀</div>
+      </div>
+    </section>
+
+    <section class="screen" id="questions">
+      <div class="question-scene">
+        <div class="progress-dots" id="questionDots"></div>
+        <div class="question-mascot">♡</div>
+        <div class="eyebrow" id="qLabel">QUESTION 01</div>
+        <h2 id="questionText">Who is the best person ever?</h2>
+        <p class="question-hint">There is absolutely a correct answer. Probably. 😭</p>
+        <div class="answers" id="answers">
+          <button>You, obviously 😭</button>
+          <button>Hmm… let me think 👀</button>
+          <button>There is only one answer 🫵</button>
+          <button>Why are you asking? 😂</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="reveal">
+      <div class="reveal-scene">
+        <div class="confetti-ring" aria-hidden="true">✦　♥　✧　♡　✦　♥</div>
+        <div class="reveal-heart">♥</div>
+        <div class="eyebrow">okay… you got it right</div>
+        <h2>It was always<br><em id="rReceiver">you.</em></h2>
+        <p>And someone has a few words they really want you to read.</p>
+        <button class="cta cta-main" id="letterBtn">There's one more thing <strong>→</strong></button>
+      </div>
+    </section>
+
+    <section class="screen" id="letterScreen">
+      <div class="letter-shell">
+        <div class="letter-card" id="letterCard">
+          <div class="letter-ribbon">made with a little love <span>♡</span></div>
+          <div class="letter-eyebrow" id="lOccasion">A little letter</div>
+          <h1 id="lReceiver"></h1>
+          <div class="ornament">♡ ───────── ✦ ───────── ♡</div>
+          <p class="letter-body" id="lText"></p>
+          <div class="signature">Always,<br><strong id="lSender"></strong></div>
+          <div class="letter-footer">✦　thank you for being you　✦</div>
+        </div>
+        <button class="cta share-btn" id="shareBtn">Make a share link <strong>↗</strong></button>
+      </div>
+    </section>
+
+    <section class="screen" id="share">
+      <div class="share-scene">
+        <div class="success-orbit">✦ ♡ ✧</div>
+        <div class="eyebrow">your surprise is ready</div>
+        <h2>Send it to <em id="sReceiver"></em> 💌</h2>
+        <p>Everything is packed into the link. No account, no database, no fuss.</p>
+        <div class="link-box"><span id="shareLink"></span><button id="copyBtn">Copy</button></div>
+        <div class="qr-frame"><div id="qr"></div></div>
+        <button class="cta cta-main" id="nativeShareBtn">Share it <strong>↗</strong></button>
+        <button class="plain-btn" id="newBtn">Make another little letter</button>
+      </div>
+    </section>
+  </main>
+  <div id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
